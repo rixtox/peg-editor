@@ -1,0 +1,67 @@
+<!doctype html>
+<html ng-app="app" ng-controller="main">
+    <head>
+
+        <meta charset="utf-8" />
+        <title>PEG.js &ndash; Grammar Editor</title>
+
+        <link rel="stylesheet" href="vendors/CodeMirror.css" />
+        <link rel="stylesheet" href="styles/application.css" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+
+        <script src="vendors/CodeMirror.js"></script>
+        <script src="vendors/codemirror/Javascript.js"></script>
+        <script src="vendors/codemirror/PegJS.js"></script>
+
+        <script src="vendors/Angular.js"></script>
+        <script src="vendors/angular/Route.js"></script>
+        <script src="vendors/angular/CodeMirror.js"></script>
+
+        <script src="vendors/Peg.js"></script>
+
+        <script src="sources/application.js"></script>
+
+    </head>
+    <body>
+
+        <div id="navigation">
+            <a class="brand" href="http://pegjs.majda.cz/">
+                <span class="peg">PEG.js</span> &ndash; Grammar Editor
+            </a>
+            <ul class="actions">
+                <li><a ng-click="export()">Export</a></li>
+            </ul>
+            <div class="copy">
+                <a href="https://arcanis.fr/posts/weekly-side-project-1-pegjs-editor.html">[ About ]</a><br />
+                PEG.js &copy; <a href="http://majda.cz/en/">David Majda</a> &ndash; 2012<br />
+                Editor &copy; <a href="http://arcanis.fr">Maël Nison</a> &ndash; 2013
+            </div>
+        </div>
+
+        <div id="content">
+            <div id="grammar">
+                <textarea class="editor" ui-codemirror="editors.grammar" ng-model="grammar"></textarea>
+            </div>
+            <div id="processing">
+                <div id="input">
+                    <textarea class="editor" ui-codemirror="editors.input" ng-model="input"></textarea>
+                </div>
+                <div id="output">
+                    <textarea class="editor" ui-codemirror="editors.output" ng-model="output"></textarea>
+                    <div ng-switch="error.type" ng-class="{ 'hidden' : !!! error }" class="infos">
+                        <div ng-switch-when="timeout" class="box box-error">
+                            <strong>Fatal Error</strong> PEG.js timeouted while trying to compile your grammar. Check for a bad recursion.
+                        </div>
+                        <div ng-switch-when="compile" class="box box-warning">
+                            <strong>Compile Error</strong> {{ error.message }}
+                        </div>
+                        <div ng-switch-when="parse" class="box box-warning">
+                            <strong>Parse Error</strong> {{ error.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
