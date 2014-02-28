@@ -1,5 +1,25 @@
 var defaultGrammar = "/*\n * Classic example grammar, which recognizes simple arithmetic expressions like\n * \"2*(3+4)\". The parser generated from this grammar then computes their value.\n */\n\nstart\n  = additive\n\nadditive\n  = left:multiplicative \"+\" right:additive { return left + right; }\n  / multiplicative\n\nmultiplicative\n  = left:primary \"*\" right:multiplicative { return left * right; }\n  / primary\n\nprimary\n  = integer\n  / \"(\" additive:additive \")\" { return additive; }\n\ninteger \"integer\"\n  = digits:[0-9]+ { return parseInt(digits.join(\"\"), 10); }\n";
 var defaultInput = "2*(3+4)";
+if(require) {
+    // Load native UI library
+    var ngui = require('nw.gui');
+
+    // Get the current window
+    var nwin = ngui.Window.get();
+
+    window.onload = function() {
+        nwin.maximize();
+        nwin.show();
+    }
+
+    var Gaze = require('gaze').Gaze;
+    var gaze = new Gaze('**/*');
+
+    gaze.on('all', function(event, filepath) {
+      if (location)
+        location.reload();
+    });
+}
 
 angular.module( 'app', [ 'ngRoute', 'ui.codemirror' ] )
 
@@ -193,6 +213,12 @@ angular.module( 'app', [ 'ngRoute', 'ui.codemirror' ] )
         $scope.grammar = defaultGrammar;
         $scope.input   = defaultInput;
         $scope.output  = null;
+
+        $scope.debug = function ( ) {
+            nwin.showDevTools(); };
+
+        $scope.exit = function ( ) {
+            ngui.App.quit(); };
 
         $scope.save = function ( ) {
             server.save( $scope.key, $scope.grammar, $scope.input ); };

@@ -1,0 +1,29 @@
+{
+  "name": "peg-editor",
+  "version": "0.0.0",
+  "description": "ERROR: No README.md file found!",
+  "main": "index.html",
+  "window": {
+    "fullscreen": false,
+    "show": false,
+    "toolbar": false,
+    "width": 800,
+    "position": "center",
+    "height": 600,
+    "min_width": 800,
+    "min_height": 600
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RixTox/peg-editor.git"
+  },
+  "author": "",
+  "license": "BSD",
+  "gitHead": "2ddb49eb1738f79fd1709344270c37252cfe966a",
+  "dependencies": {
+    "gaze": "~0.5.1"
+  }
+}
